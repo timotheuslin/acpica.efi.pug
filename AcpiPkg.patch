@@ -1,0 +1,55 @@
+diff --git a/generate/efi/AcpiPkg_stdlib.dsc b/generate/efi/AcpiPkg_stdlib.dsc
+index 06105de74..1536ab31f 100644
+--- a/generate/efi/AcpiPkg_stdlib.dsc
++++ b/generate/efi/AcpiPkg_stdlib.dsc
+@@ -65,4 +65,5 @@
+ !include StdLib/StdLib.inc
+ 
+ [Components.common]
+-  AcpiPkg/source/acpidump.inf
++  efi/acpidump/acpidump_stdlib.inf
++  efi/acpidump/acpidump_nostdlib.inf
+diff --git a/generate/efi/acpidump/acpidump_nostdlib.inf b/generate/efi/acpidump/acpidump_nostdlib.inf
+index 2558016f7..cc2cfe890 100644
+--- a/generate/efi/acpidump/acpidump_nostdlib.inf
++++ b/generate/efi/acpidump/acpidump_nostdlib.inf
+@@ -15,7 +15,7 @@
+ 
+ [Defines]
+   INF_VERSION                    = 0x00010005
+-  BASE_NAME                      = acpidump
++  BASE_NAME                      = acpidump_nostdlib
+   FILE_GUID                      = bf942c9a-2942-11e6-9a64-0024e8c6d30e
+   MODULE_TYPE                    = UEFI_APPLICATION
+   VERSION_STRING                 = 1.0
+@@ -48,7 +48,7 @@
+   components/utilities/utxferror.c
+ 
+ [Packages]
+-  AcpiPkg/AcpiPkg.dec
++  efi/AcpiPkg.dec
+   MdePkg/MdePkg.dec
+ 
+ [LibraryClasses]
+diff --git a/generate/efi/acpidump/acpidump_stdlib.inf b/generate/efi/acpidump/acpidump_stdlib.inf
+index f87e98bf1..4e6fcc4c4 100644
+--- a/generate/efi/acpidump/acpidump_stdlib.inf
++++ b/generate/efi/acpidump/acpidump_stdlib.inf
+@@ -15,7 +15,7 @@
+ 
+ [Defines]
+   INF_VERSION                    = 0x00010005
+-  BASE_NAME                      = acpidump
++  BASE_NAME                      = acpidump_stdlib
+   FILE_GUID                      = EAB96253-B448-4855-BE7D-5A95DDECA540
+   MODULE_TYPE                    = UEFI_APPLICATION
+   VERSION_STRING                 = 1.0
+@@ -48,7 +48,7 @@
+   MdePkg/MdePkg.dec
+   StdLib/StdLib.dec
+   ShellPkg/ShellPkg.dec
+-  AcpiPkg/AcpiPkg.dec
++  efi/AcpiPkg.dec
+   StdLibPrivateInternalFiles/DoNotUse.dec
+ 
+ [LibraryClasses]
