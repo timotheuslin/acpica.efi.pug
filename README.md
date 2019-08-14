@@ -1,6 +1,6 @@
-acpica.pug
+acpica.efi.pug
 ===
-**acpica.pug** provides another way to build [ACPICA's AcpiPkg](https://github.com/acpica/acpica.git) using [iPug](https://github.com/timotheuslin/ipug).
+**acpica.efi.pug** provides another way to build [ACPICA's AcpiPkg/acpidump.efi](https://github.com/acpica/acpica.git) using [iPug](https://github.com/timotheuslin/ipug).
 
 
 ## Prerequisites:
@@ -8,7 +8,7 @@ acpica.pug
 2. git 2.19.0+
 
 
-## Generic prerequisites for the UDK build:
+## Generic prerequisites for the UDK/Edk2 build:
 1. nasm (2.0 or above)
 2. iasl (version 2018xxxx or newer)
 3. MSVC(Windows) or Xcode(Mac) or GCC(Open-source Posix)
@@ -25,8 +25,8 @@ acpica.pug
 
 
 ## Usage: 
-1. `git clone https://github.com/timotheuslin/acpica.pug.git`
-2. In the command console, change-directory to folder **acpica.pug** .
+1. `git clone https://github.com/timotheuslin/acpica.efi.pug.git`
+2. In the command console, change-directory to folder **acpica.efi.pug** .
 3. To build the code, run `python project.py`. <br>
     For the 1st time setup, following code trees would be automatically git-cloned:
     - the [UDK code tree](https://github.com/tianocore/edk2)
@@ -38,7 +38,7 @@ acpica.pug
 
 
 ## Known issues:
-1. Working for Linux/GCC only. Windows/MSVC seems having some C99 incompatibility issues to deal with. Xcode is not tested.
+1. Build-tested with Linux/GCC only.
 
 
 ## Tech notes:
@@ -47,7 +47,7 @@ acpica.pug
     - $HOME/.cache/pug/edk2 (Linux)
 2. On Windows, the default MSVC tool chain tag is "vs2012x86". The following command should be run first in the command console:
     - "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
-3. The folder **acpica.pug**, as the current working directory, is assigned as the "WORKSPACE" directory. **[PACKAGES_PATH a.k.a. MULTIPLE-WORKSPACE](https://github.com/tianocore/tianocore.github.io/wiki/Multiple_Workspace)** is used here to implicitly reference other standard packages outside the current working directory tree.
-4. A patch file, `AcpiPkg.patch` has been applied automatically to build acpidump_stdlib.efi and acpidump_nostdlib.efi at the same time.
+3. The folder **acpica.efi.pug**, as the current working directory, is assigned as the "WORKSPACE" directory. **[PACKAGES_PATH a.k.a. MULTIPLE-WORKSPACE](https://github.com/tianocore/tianocore.github.io/wiki/Multiple_Workspace)** is used here to implicitly reference other standard packages outside the current working directory tree.
+4. A patch file, `AcpiPkg.patch` has been applied automatically in order to build acpidump_stdlib.efi and acpidump_nostdlib.efi at the same time.
 
 ## Have Fun!
