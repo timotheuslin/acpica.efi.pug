@@ -48,6 +48,6 @@ if __name__ == '__main__':
     sys.dont_write_bytecode = True      # To inhibit the creation of .pyc file
 
     PKG_DSC = 'efi/AcpiPkg_stdlib.dsc'
-    IPUG_CMD = 'ipug -p {0} {1}'.format(PKG_DSC, ' '.join(sys.argv[1:]))
+    IPUG_CMD = 'ipug {0} -p {1}'.format(' '.join(sys.argv[1:]), PKG_DSC)
     print(IPUG_CMD)
     os.system(IPUG_CMD)

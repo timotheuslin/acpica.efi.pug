@@ -53,3 +53,47 @@ index f87e98bf1..4e6fcc4c4 100644
    StdLibPrivateInternalFiles/DoNotUse.dec
  
  [LibraryClasses]
+diff --git a/source/components/utilities/utglobal.c b/source/components/utilities/utglobal.c
+index 806a9406d..1a9a59ab1 100644
+--- a/source/components/utilities/utglobal.c
++++ b/source/components/utilities/utglobal.c
+@@ -232,10 +232,10 @@ const ACPI_PREDEFINED_NAMES     AcpiGbl_PreDefinedNames[] =
+      * has little or no value. Return 2 for compatibility with
+      * other ACPI implementations.
+      */
+-    {"_REV",    ACPI_TYPE_INTEGER,          ACPI_CAST_PTR (char, 2)},
++    {"_REV",    ACPI_TYPE_INTEGER,          ACPI_CAST_PTR (char, (size_t)2)},
+     {"_OS_",    ACPI_TYPE_STRING,           ACPI_OS_NAME},
+-    {"_GL_",    ACPI_TYPE_MUTEX,            ACPI_CAST_PTR (char, 1)},
+-    {"_OSI",    ACPI_TYPE_METHOD,           ACPI_CAST_PTR (char, 1)},
++    {"_GL_",    ACPI_TYPE_MUTEX,            ACPI_CAST_PTR (char, (size_t)1)},
++    {"_OSI",    ACPI_TYPE_METHOD,           ACPI_CAST_PTR (char, (size_t)1)},
+ 
+     /* Table terminator */
+ 
+diff --git a/source/os_specific/efi/osefitbl.c b/source/os_specific/efi/osefitbl.c
+index f0818e7e3..e33363c24 100644
+--- a/source/os_specific/efi/osefitbl.c
++++ b/source/os_specific/efi/osefitbl.c
+@@ -835,7 +835,7 @@ OslGetTable (
+     UINT8                   NumberOfTables;
+     UINT8                   ItemSize;
+     UINT32                  CurrentInstance = 0;
+-    ACPI_PHYSICAL_ADDRESS   TableAddress;
++    ACPI_PHYSICAL_ADDRESS   TableAddress = 0;
+     ACPI_PHYSICAL_ADDRESS   FirstTableAddress = 0;
+     UINT32                  TableLength = 0;
+     ACPI_STATUS             Status = AE_OK;
+diff --git a/source/os_specific/efi/osefixf.c b/source/os_specific/efi/osefixf.c
+index 528a6a66d..f6aefef32 100644
+--- a/source/os_specific/efi/osefixf.c
++++ b/source/os_specific/efi/osefixf.c
+@@ -400,7 +400,7 @@ AcpiOsCreateSemaphore (
+     UINT32              InitialUnits,
+     ACPI_HANDLE         *OutHandle)
+ {
+-    *OutHandle = (ACPI_HANDLE) 1;
++    *OutHandle = (ACPI_HANDLE) (size_t) 1;
+     return (AE_OK);
+ }
+ 
