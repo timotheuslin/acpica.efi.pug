@@ -1,4 +1,3 @@
 AcpiPkg/
 Build/
 .vscode/
-edk2-libc/

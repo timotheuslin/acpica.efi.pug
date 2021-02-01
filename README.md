@@ -1,11 +1,11 @@
 acpica.efi.pug
 ===
-**acpica.efi.pug** provides another way to build [ACPICA's AcpiPkg/acpidump.efi](https://github.com/acpica/acpica.git) using [iPug](https://github.com/timotheuslin/ipug).
+**acpica.efi.pug** provides a handier way to build [AcpiPkg/acpidump.efi from ACPICA](https://github.com/acpica/acpica.git) using [iPug](https://github.com/timotheuslin/ipug).
 
 
 ## Prerequisites:
-1. Python 3.6.0+
-2. git 2.19.0+
+1. Python 3.7.0+
+2. git 2.25.0+
 
 
 ## Generic prerequisites for the UDK/Edk2 build:
@@ -14,40 +14,39 @@ acpica.efi.pug
 3. MSVC(Windows) or Xcode(Mac) or GCC(Open-source Posix)
 4. build-essential uuid-dev (Posix)
 6. motc (Xcode)
-7. iPug (a Python package, installed through pip)
+7. iPug (a PyPI package, installed through pip)
 0. Reference:
     - [Getting Started with EDK II](https://github.com/tianocore/tianocore.github.io/wiki/Getting%20Started%20with%20EDK%20II) 
     - [Xcode](https://github.com/tianocore/tianocore.github.io/wiki/Xcode)
 
 
 ## Tool installation for any Debian-Based Linux:
-- `sudo apt update; sudo apt install nasm iasl build-essential uuid-dev; pip install "ipug>=0.1.4" --user`
+- `sudo apt update && sudo apt install nasm iasl build-essential uuid-dev python3-pip python-is-python3 && pip install "ipug>=0.2.3" --user`
 
 
 ## Usage: 
 1. `git clone https://github.com/timotheuslin/acpica.efi.pug.git`
-2. In the command console, change-directory to folder **acpica.efi.pug** .
-3. To build the code, run `python project.py`. <br>
+2. change-directory to folder **acpica.efi.pug** .
+3. To build the code, run `python project.py setup`, then `python project.py` <br>
     For the 1st time setup, following code trees would be automatically git-cloned:
-    - the [UDK code tree](https://github.com/tianocore/edk2)
-    - the openssl repo (and some other CryptoPkg's submodules maybe)
+    - the [EDK2 code tree](https://github.com/tianocore/edk2)
+        -  the openssl repo and some other submodules
     - [ACPICA's AcpiPkg](https://github.com/acpica/acpica.git)
 4. Browse to folder **Build/Acpi** for the build results.
 5. Browse to folder **Build/Conf** for CONF_PATH setting files.
-6. Run `python project.py {clean, cleanall}` to clean (all) the intermediate files.
+6. Run `python project.py cleanall` to clean all the intermediate files. 
+* You may have to figure out the correct way to launch a python script on your system. e.g. maybe through `python3`, or `py -3` using the python launcher.
 
 
-## Known issues:
-1. Build-tested with Linux/GCC only.
+## Build Status:
+1. Built with Linux/GCC and Windows/VS2017.
+2. Mock-up with ACPICA's code tag: `R01_10_20` and `R01_05_21`.
 
 
-## Tech notes:
-1. The full [UDK code tree](https://github.com/tianocore/edk2) is git-cloned-checked-out to:
+## Tech Notes:
+1. By iPug, the full [EDK2 code tree](https://github.com/tianocore/edk2) is git-cloned-checked-out to:
     - %USERPROFILE%\.cache\pug\edk2 (Windows)
     - $HOME/.cache/pug/edk2 (Linux)
-2. On Windows, the default MSVC tool chain tag is "vs2012x86". The following command should be run first in the command console:
-    - "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
+2. On Windows, the default MSVC tool chain tag is "vs2017x86". Before launching the build, you have to launch the VS's console through `x64 Native Tools Command Prompt for VS 2017` in the Windows start menu or call `vcvars32.bat` in CMD.exe console.
 3. The folder **acpica.efi.pug**, as the current working directory, is assigned as the "WORKSPACE" directory. **[PACKAGES_PATH a.k.a. MULTIPLE-WORKSPACE](https://github.com/tianocore/tianocore.github.io/wiki/Multiple_Workspace)** is used here to implicitly reference other standard packages outside the current working directory tree.
-4. A patch file, `AcpiPkg.patch` has been applied automatically in order to build acpidump_stdlib.efi and acpidump_nostdlib.efi at the same time.
-
-## Have Fun!
+4. A patch file, `AcpiPkg.patch` has been applied automatically in order to build acpidump_nostdlib.efi.
